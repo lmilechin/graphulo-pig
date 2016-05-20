@@ -30,6 +30,12 @@ import org.apache.pig.data.TupleFactory;
 
 import org.apache.pig.backend.hadoop.accumulo.AccumuloStorage;
 
+/**
+ * Doesn't work at all. Maybe we don't need this and should just use the AccumuloStorage...
+ * 
+ * @author ti26350
+ *
+ */
 
 public class GraphuloStorage extends AccumuloStorage {
 

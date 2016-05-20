@@ -12,6 +12,12 @@ import edu.mit.ll.d4m.db.cloud.accumulo.AccumuloConnection;
 import org.apache.accumulo.core.client.security.tokens.*;
 import org.apache.accumulo.core.client.*;
 
+/**
+ * Simple test UDF to connect to Accumulo and return the number of entries in the given table.
+ * 
+ * @author ti26350
+ *
+ */
 public class testUDF extends EvalFunc<String> {
 	
     public String exec(Tuple input) throws IOException {

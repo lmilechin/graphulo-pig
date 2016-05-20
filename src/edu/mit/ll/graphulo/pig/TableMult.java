@@ -59,7 +59,10 @@ public class TableMult extends EvalFunc<String> {
             new byte[0]);
 
     /**
-     * Executes the given TableMult command given the two tables
+     * Executes the given TableMult command given:
+     * - Accumulo Configuration file name
+     * - Table Names (3)
+     * - TableMult Configuration file name
      */
     public String exec(Tuple input) throws IOException {
         
