@@ -17,11 +17,11 @@ public class testUDF extends EvalFunc<String> {
     public String exec(Tuple input) throws IOException {
     
     	try {
-    		String instance = "txg-classdb04";
-	    	String zkServers = "txg-classdb04.cloud.llgrid.ll.mit.edu";
+    		String instance = null;
+	    	String zkServers = null;
 	
-	    	String principal = "AccumuloUser";
-	    	AuthenticationToken authToken = new PasswordToken("onPKURqGF@zFRyEZDLsV460EH");
+	    	String principal = null;
+	    	AuthenticationToken authToken = new PasswordToken("");
 	
 	    	ZooKeeperInstance inst = new ZooKeeperInstance(instance, zkServers);
 	    	Connector conn = inst.getConnector(principal, authToken);
