@@ -36,7 +36,6 @@ public class BFS extends EvalFunc<String> {
      *                    			v0 may be a range of nodes like "c,:,e,g,k,:,".
      * @param k           			Number of steps
      * @param ResultTable			Name of table to store result. Null means don't store the result.
-     * @param ResultTableT			Name of table to store the transpose of the result. Null means don't store the result.
      * @param BFSConfigFile			Name of file containing additional BFS configuration information
      */
     public String exec(Tuple input) throws IOException {

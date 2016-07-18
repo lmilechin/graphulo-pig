@@ -38,7 +38,8 @@ public class testUDF extends EvalFunc<String> {
 	//    	PasswordToken at = new PasswordToken("onPKURqGF@zFRyEZDLsV460EH");
 	    	
 	    	Graphulo g = new Graphulo(conn, authToken);
-	    	
+//	    	g.generateDegreeTable(table, Degtable, countColumns)
+//	    	g.Jaccard(Aorig, ADeg, Rfinal, filterRowCol, Aauthorizations, RNewVisibility)
     	
 	        if (input.size() == 0)
 	            return null;
