@@ -12,8 +12,6 @@ Graphulo stores its graphs in one of three different formats.
 
 The following uses the built-in Accumulo LOAD function to read in the values from a simple Adjacency graph.
 
-> (chararray, Map)
-
 ```
 REGISTER graphulo-pig.jar
 
@@ -22,13 +20,19 @@ raw = LOAD 'accumulo://SimpleAdj?instance=graphuloLocal&user=root&password=graph
       USING org.apache.pig.backend.hadoop.accumulo.AccumuloStorage('*', '') AS
       (vertex:chararray,vals:map[]);
 DUMP raw;
-```
-However, the formatting of the *raw* Map is not always useful for some processing needs. Therefore, we include an *ExtractMaps* function that expands each Map element to become its own tuple of the form:
 
-> (charrarray, chararray, int)
-
-```
 F = FOREACH raw GENERATE FLATTEN(edu.mit.ll.graphulo.pig.data.ExtractMaps(vertex, vals)) AS (from:chararray, to:chararray, value:int);
 DUMP F;
 ```
+
+Depending on the analytic, the formatting of the *raw* Map is not always useful. Therefore, we include an *ExtractMaps* function that expands each Map element to become its own tuple of the form.
+
+> (chararray, Map)
+> (vertex1, [vertex2#1,vertex3#1])
+
+to the form
+
+> (charrarray, chararray, int)
+> (vertex1, vertex2, 1)
+> (vertex1, vertex3, 1)
  
