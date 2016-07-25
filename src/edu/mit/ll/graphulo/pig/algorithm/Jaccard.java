@@ -30,9 +30,12 @@ public class Jaccard extends EvalFunc<Double> {
     /**
      * Executes the BFS command, given the input parameters.
      * 
-     * @param AccConfigFile			Name of file containing Accumulo configuration information
-     * @param GraphTable 		    Name of Accumulo table containing the graph to be searched.
-     * @param ResultTable			Name of table to store result. Null means don't store the result.
+     * @param Tuple Input tuple
+     * <ol>
+     *   <li> AccConfigFile			Name of file containing Accumulo configuration information</li>
+     *   <li> GraphTable 		    Name of Accumulo table containing the graph to be searched.</li>
+     *   <li> ResultTable			Name of table to store result. Null means don't store the result.</li>
+     * </ol>
      */
     public Double exec(Tuple input) throws IOException {
         

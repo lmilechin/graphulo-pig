@@ -21,22 +21,19 @@ import edu.mit.ll.graphulo.pig.backend.LocalFileUtil;
  */
 public class BFS extends EvalFunc<String> {
 
-    private static final Logger log = Logger.getLogger(AccumuloStorage.class);
-    private static final String COLON = ":", EMPTY = "";
-    private static final Text EMPTY_TEXT = new Text(new byte[0]);
-    private static final DataByteArray EMPTY_DATA_BYTE_ARRAY = new DataByteArray(
-            new byte[0]);
-
     /**
      * Executes the BFS command, given the input parameters.
      * 
-     * @param AccConfigFile			Name of file containing Accumulo configuration information
-     * @param GraphTable 		    Name of Accumulo table containing the graph to be searched.
-     * @param v0          			Starting nodes, like "a,f,b,c,". Null or empty string "" means start from all nodes.
-     *                    			v0 may be a range of nodes like "c,:,e,g,k,:,".
-     * @param k           			Number of steps
-     * @param ResultTable			Name of table to store result. Null means don't store the result.
-     * @param BFSConfigFile			Name of file containing additional BFS configuration information
+     * @param Tuple
+     * <ol>
+     *   <li>AccConfigFile			Name of file containing Accumulo configuration information</li>
+     *   <li> GraphTable 		    Name of Accumulo table containing the graph to be searched.</li>
+     *   <li> v0          			Starting nodes, like "a,f,b,c,". Null or empty string "" means start from all nodes.
+     *                    			v0 may be a range of nodes like "c,:,e,g,k,:,".</li>
+     *   <li> k           			Number of steps</li>
+     *   <li> ResultTable			Name of table to store result. Null means don't store the result.</li>
+     *   <li> BFSConfigFile			Name of file containing additional BFS configuration information.</li>
+     * </ol>
      */
     public String exec(Tuple input) throws IOException {
         

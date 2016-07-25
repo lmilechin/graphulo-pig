@@ -83,3 +83,17 @@ We can provide further dissection of the edges as follows:
 (edge2, in, vertex3, 1)
 (edge2, out, vertex1, 1)
 ```
+
+## Adjacency and Edge Degree Tables
+```
+REGISTER graphulo-pig.jar
+
+-- Read the Degree Table using Accumulo default
+raw = LOAD 'accumulo://SimpleAdj?instance=graphuloLocal&user=root&password=graphuloLocal&zookeepers=localhost'
+      USING org.apache.pig.backend.hadoop.accumulo.AccumuloStorage('*', '') AS
+      (vertex:chararray,vals:map[]);
+DUMP raw;
+
+F = FOREACH raw GENERATE FLATTEN(edu.mit.ll.graphulo.pig.data.ExtractMaps(vertex, vals)) AS (from:chararray, to:chararray, value:int);
+DUMP F;
+```

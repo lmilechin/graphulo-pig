@@ -16,24 +16,16 @@ import org.apache.pig.data.DataBag;
 import org.apache.pig.data.DataType;
 
 /**
- * Class to extract Tuples from the Map values from the original Accumulo format. 
+ * Convert the original Accumulo-backed Edge representation to a more Pig-friendly representation.
  * <p>
- * Adjacency Represenation Conversion:
- * <ul>
- * <li><b>From:</b> (FromVertex, {[ToVertex#Value]})
- * <li><b>To:</b> (FromVertex,ToVertex,Value)
- * </ul>
- * <p>
- * Edge Representation Conversion:
- * <ul>
- * <li><b>From:</b> (Edge, {[Type|Vertex#Value]})
- * <li><b>To:</b> (Edge,Type|Vertex,Value)
- * </ul>
+ * This representation that can be used with <b>FLATTEN</b>. After FLATTEN, 
+ * this results in a 4-Tuple <em>(Edge,Type,Vertex,Value)</em>. This is
+ * more amendable than the original <em>(Edge, {[Type|Vertex#Value]})</em> representation.
  * 
  * @author ti26350
  *
  */
-public class ExtractMaps extends EvalFunc<DataBag> {
+public class ExtractFullEdgeMaps extends EvalFunc<DataBag> {
 	
 	 private static final BagFactory bagFactory = BagFactory.getInstance();
 	
@@ -45,18 +37,22 @@ public class ExtractMaps extends EvalFunc<DataBag> {
         if (input == null || input.size() != 2)
             return null;
         
-        try{
-            
+        try{            
             DataBag db = bagFactory.newDefaultBag();
             
             Map<String,Object> m = (Map<String,Object>) input.get(1);
             Iterator<Entry<String,Object>> it = m.entrySet().iterator();
             while(it.hasNext()) {
             	Entry<String,Object> e = it.next();
-            	Tuple output = TupleFactory.getInstance().newTuple(3);
+            	Tuple output = TupleFactory.getInstance().newTuple(4);
             	output.set(0, input.get(0));
-            	output.set(1, e.getKey().substring(1));
-            	output.set(2, e.getValue());
+            	
+            	String info = e.getKey().substring(1);
+            	String[] vals = info.split("\\|");
+            	output.set(1, vals[0]);
+            	output.set(2, vals[1]);            	
+            	output.set(3, e.getValue());
+            	
             	db.add(output);
             }
             
@@ -66,12 +62,14 @@ public class ExtractMaps extends EvalFunc<DataBag> {
             return null;
         }
     }
-    /**
-     * TODO: Update the output schema.
-     */
+    
+	/**
+	 * TODO: Update the output schema.  
+	 */
     public Schema outputSchema(Schema input) {
         try{
             Schema tupleSchema = new Schema();
+            tupleSchema.add(input.getField(0));
             tupleSchema.add(input.getField(0));
             tupleSchema.add(input.getField(0));
             tupleSchema.add(input.getField(0));
@@ -80,7 +78,6 @@ public class ExtractMaps extends EvalFunc<DataBag> {
                 return null;
         }
     }
-    
 }
 //Iterator<Object> it = input.iterator();
 //while(it.hasNext()) {
