@@ -22,7 +22,7 @@ import edu.mit.ll.graphulo.util.TripleFileWriter;
  * File is expected to have the form: 
  *	
  */
-public class InsertAdjacencyGraph extends EvalFunc<String> {
+public class InsertIncidenceGraph extends EvalFunc<String> {
 
     /**
      * Inserts an Adjacency graph into Accumulo.
@@ -87,8 +87,8 @@ public class InsertAdjacencyGraph extends EvalFunc<String> {
         	File vals = null;
     		
 	    	TripleFileWriter tfw = new TripleFileWriter(LocalFileUtil.createAccumuloConnection(accumuloConfiguration));
-	    	long l = tfw.writeTripleFile_Adjacency(verts, edges, vals, ",", graphName, true, false);
-	    		    	
+	    	long l = tfw.writeTripleFile_Incidence(verts, edges, vals, ",", graphName, true, false, 0);
+	    	
 	    	return Long.toString(l);
 
         } catch (Exception e) {
