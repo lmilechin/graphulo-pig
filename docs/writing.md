@@ -1,42 +1,33 @@
-Graphulo-Pig
+Writing to Graphulo
 ========
 
-Graphulo-Pig is a Java library that provides a connector to graph algorithms created in [Graphulo][] from within the [Apache Pig][] analytic environment.
+Graphulo-Pig has three different ways to write to Graphulo, depending on the kind of internal representation required. It currently supports three different formats:
+* Adjacency
+* Incidence (Edge)
+* Single-Table 
 
-The Graphulo-Pig connector is tested on Accumulo 1.7 and Pig 0.0.15.
+### Input File Format
+At the current time, Graphulo only accepts files of the following formats:
 
-[Graphulo]: http://graphulo.mit.edu/
-[Apache Pig]: https://pig.apache.org/
-[Apache Accumulo]: https://accumulo.apache.org/
+```
+vertexFrom,vertexTo,value
+```
+(value is an optional field)
 
-### Prerequisites
-Graphulo-Pig requires access to existing installations of:
+CAN IT READ FROM AN EDGE FILES?
 
-1. [Apache Accumulo][] with [Graphulo]
-2. [Apache Pig]
+### Sample Code
+Please see the [sample code][adjacency].
 
-Instructions on setting up each environment can be found on their appropriate websites.
+### Accumulo
 
-### Build
+### Incidence (Edge)
+Please see the [sample code][incidence].
 
-Prerequisites:
+### Single Table
+Please see the [sample code][single].
 
-1. Install [Maven](https://maven.apache.org/download.cgi).
-
-Run `mvn package -DskipTests=true` to compile and build graphulo-pig.
-This creates the primary Graphulo-Pig artifact inside the `target/` sub-directory:
-
-1. `graphulo-pig-${version}.jar`         Graphulo-Pig binaries, enough for client usage.
-Include this on the classpath of Java client applications that call Graphulo functions. 
-
-The maven script should build everything on Unix-like systems (including Mac).
-
-### Quick Start Applications
-
-* [Writing][writing] graphs to Accumulo using the Graphulo-Pig connector
-* [Reading][reading] graphs from Accumulo
-* [Breadth-First Search][bfs] examples
  
- [writing]: docs/writing.md
- [reading]: docs/reading.md
- [bfs]: docs/bfs.md
+ [adjacency]: ../pig/code/insert/graph_adj_test.pig
+ [incidence]: ../pig/code/insert/graph_inc_test.pig
+ [single]: ../pig/code/insert/graph_sng_test.pig

@@ -87,7 +87,7 @@ import org.joda.time.DateTime;
  * (key, colfam, colqual, value)
  * 
  */
-public abstract class AbstractGraphuloStorage extends LoadFunc implements
+public abstract class AbstractGraphuloStorage extends AbstractAccumuloStorage implements
         StoreFuncInterface {
     private static final Log log = LogFactory
             .getLog(AbstractGraphuloStorage.class);
@@ -137,6 +137,7 @@ public abstract class AbstractGraphuloStorage extends LoadFunc implements
 
     public AbstractGraphuloStorage(String columns, String args)
             throws ParseException, IOException {
+    	super(columns,args);
         storageOptions = new GraphuloStorageOptions();
         commandLine = storageOptions.getCommandLine(args);
 
@@ -536,7 +537,7 @@ public abstract class AbstractGraphuloStorage extends LoadFunc implements
      * @param job
      *            The Mapreduce Job object
      * @throws IOException
-     */
+     
     protected void loadDependentJars(Configuration conf) throws IOException {
         // Thank you, HBase.
         Utils.addDependencyJars(conf,

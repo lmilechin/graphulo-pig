@@ -73,9 +73,9 @@ public class ExtractMaps extends EvalFunc<DataBag> {
         try{
             Schema tupleSchema = new Schema();
             tupleSchema.add(input.getField(0));
-            tupleSchema.add(input.getField(0));
-            tupleSchema.add(input.getField(0));
-            return new Schema(new Schema.FieldSchema("",tupleSchema, DataType.TUPLE));
+            tupleSchema.add(new Schema.FieldSchema(null, DataType.CHARARRAY));
+            tupleSchema.add(new Schema.FieldSchema(null, DataType.INTEGER));     
+            return new Schema(new Schema.FieldSchema(null,tupleSchema, DataType.TUPLE));
         }catch (Exception e){
                 return null;
         }

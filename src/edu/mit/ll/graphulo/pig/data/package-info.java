@@ -7,9 +7,9 @@
  * <p>
  * Handles three types of data representation:
  * <ul>
- * <li>Associative
- * <li>Incidence (Edge)
- * <li>Single-Table
+ * <li>Associative: Vertex-Vertex graph matrix, Inverse graph matrix and degree table.
+ * <li>Incidence (Edge): Edge graph matrix, Inverse graph matrix and degree table.
+ * <li>Single-Table: All data resides in a single table. Most compact representation.
  * </ul>
  * <p>
  * 
