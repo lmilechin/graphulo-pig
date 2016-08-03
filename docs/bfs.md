@@ -1,42 +1,21 @@
-Graphulo-Pig
+Breadth-First Search
 ========
 
-Graphulo-Pig is a Java library that provides a connector to graph algorithms created in [Graphulo][] from within the [Apache Pig][] analytic environment.
+Once the graph is loaded, 
 
-The Graphulo-Pig connector is tested on Accumulo 1.7 and Pig 0.0.15.
+###Required Parameters
 
-[Graphulo]: http://graphulo.mit.edu/
-[Apache Pig]: https://pig.apache.org/
-[Apache Accumulo]: https://accumulo.apache.org/
+* __AccConfigFile:__ Name of file containing Accumulo configuration information
+* __GraphTable:__ Name of Accumulo table containing the graph to be searched.
+* __v0:__ Starting nodes, like "a,f,b,c,". Null or empty string "" means start from all nodes. v0 may be a range of nodes like "c,:,e,g,k,:,".
+* __k:__ Number of steps
+* __ResultTable:__ Name of table to store result. Null means don't store the result.
+* __BFSConfigFile:__ Name of file containing additional BFS configuration information.
 
-### Prerequisites
-Graphulo-Pig requires access to existing installations of:
 
-1. [Apache Accumulo][] with [Graphulo]
-2. [Apache Pig]
+###Configuration File
 
-Instructions on setting up each environment can be found on their appropriate websites.
-
-### Build
-
-Prerequisites:
-
-1. Install [Maven](https://maven.apache.org/download.cgi).
-
-Run `mvn package -DskipTests=true` to compile and build graphulo-pig.
-This creates the primary Graphulo-Pig artifact inside the `target/` sub-directory:
-
-1. `graphulo-pig-${version}.jar`         Graphulo-Pig binaries, enough for client usage.
-Include this on the classpath of Java client applications that call Graphulo functions. 
-
-The maven script should build everything on Unix-like systems (including Mac).
-
-### Quick Start Applications
-
-* [Writing][writing] graphs to Accumulo using the Graphulo-Pig connector
-* [Reading][reading] graphs from Accumulo
-* [Breadth-First Search][bfs] examples
- 
- [writing]: docs/writing.md
- [reading]: docs/reading.md
- [bfs]: docs/bfs.md
+* __minDegree:__ Minimum out-degree. Checked before doing any searching, at every step, from ADegtable. Pass 0 for no filtering.
+* __maxDegree:__ Maximum out-degree. Checked before doing any searching, at every step, from ADegtable. Pass Integer.MAX_VALUE for no filtering.
+* __newVisibility:__ Visibility label for new entries created in Rtable and/or RTtable. Null means use the visibility of the parent keys. Important: this is one option for which null (don't change the visibiltity) is distinguished from the empty string (set the visibility of all Keys seen to the empty visibility).
+* __useNewTimestamp:__ If true, new Keys written to Rtable/RTtable receive a new timestamp from {@link System#currentTimeMillis()}. If false, retains the original timestamps of the Keys in Etable.
