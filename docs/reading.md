@@ -25,6 +25,8 @@ F = FOREACH raw GENERATE FLATTEN(edu.mit.ll.graphulo.pig.data.ExtractMaps(vertex
 DUMP F;
 ```
 
+This code can be run from the [example file][adjacency].
+
 Depending on the analytic, the formatting of the *raw* Map is not always useful. Therefore, we include an *ExtractMaps* function that expands each Map element to become its own tuple of the form.
 
 ```
@@ -97,3 +99,5 @@ DUMP raw;
 F = FOREACH raw GENERATE FLATTEN(edu.mit.ll.graphulo.pig.data.ExtractMaps(vertex, vals)) AS (from:chararray, to:chararray, value:int);
 DUMP F;
 ```
+
+[adjacency]: ../pig/code/insert/graph_adj_test.pig

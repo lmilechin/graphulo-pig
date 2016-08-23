@@ -87,7 +87,7 @@ public class InsertIncidenceGraph extends EvalFunc<String> {
         	File vals = null;
     		
 	    	TripleFileWriter tfw = new TripleFileWriter(LocalFileUtil.createAccumuloConnection(accumuloConfiguration));
-	    	long l = tfw.writeTripleFile_Incidence(verts, edges, vals, ",", graphName, true, false, 0);
+	    	long l = tfw.writeTripleFile_Incidence(verts, edges, vals, ",", graphName, true, false, -1);
 	    	
 	    	return Long.toString(l);
 

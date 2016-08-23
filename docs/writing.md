@@ -6,12 +6,15 @@ Graphulo-Pig has three different ways to write to Graphulo, depending on the kin
 * Incidence (Edge)
 * Single-Table 
 
+Additional information on the differences between the representations can be found in [Graphulo's documentation][TODO].
+
 ### Adjacency Graph File Format
 At the current time, Graphulo only accepts files of the following formats:
 
 ```
 vertexFrom,vertexTo,value
 ```
+
 Value is an optional field. If it's not included, Graphulo will default to a value of 1.
 
 ### Edge Graph File Format
