@@ -44,7 +44,7 @@
     </dependency>
     <dependency>
     	<groupId>edu.mit.ll.graphulo</groupId>
-    	<artifactId>graphulo-alldeps</artifactId>
+    	<artifactId>graphulo</artifactId>
     	<version>1.0.0</version>
     </dependency>
   </dependencies>

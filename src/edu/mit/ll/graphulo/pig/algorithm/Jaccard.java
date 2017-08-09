@@ -46,14 +46,19 @@ public class Jaccard extends EvalFunc<Double> {
 	            return -1.0;
 	    	
 	    	// TableMult configuration information
-            String accConfigFile 	= (String) input.get(0);
-            String graphTable 		= (String) input.get(1);
-            String Rtable			= (String) input.get(4);
+            Tuple dbTable           = (Tuple) input.get(0);
+            String accConfigFile    = (String) dbTable.get(0);
+            String mainTable        = (String) dbTable.get(1);
+            String degTable         = (String) input.get(1);
+            String Rtable           = mainTable + "_Jaccard";
+            if (input.size() > 2)
+                Rtable              = (String) input.get(2);
+
 
 	    	//Set up Accumulo/Graphulo Connection
             Graphulo g = LocalFileUtil.createGraphuloConnection(accConfigFile);
             
-	    	double s = g.Jaccard(graphTable, graphTable+"Deg", Rtable, null, null, null);
+	    	double s = g.Jaccard(mainTable, degTable, Rtable, null, null, null);
             return s;
 
         } catch (Exception e) {

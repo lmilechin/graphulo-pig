@@ -1,10 +1,6 @@
 package edu.mit.ll.graphulo.pig.backend;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -52,7 +48,8 @@ public class LocalFileUtil {
 			// Set up Accumulo connection parameters
 	    	AuthenticationToken authToken = new PasswordToken(accProps.getProperty("password"));
 	    	ZooKeeperInstance inst = new ZooKeeperInstance(accProps.getProperty("instance"), accProps.getProperty("zkServers"));
-	    	Connector conn = inst.getConnector(accProps.getProperty("user"), authToken);
+
+			Connector conn = inst.getConnector(accProps.getProperty("user"), authToken);
 
 	    	// Connect using Graphulo Interface
 			g = new Graphulo(conn, authToken);
@@ -89,6 +86,7 @@ public class LocalFileUtil {
 			// Set up Accumulo connection parameters
 	    	AuthenticationToken authToken = new PasswordToken(accProps.getProperty("password"));
 	    	ZooKeeperInstance inst = new ZooKeeperInstance(accProps.getProperty("instance"), accProps.getProperty("zkServers"));
+		
 			conn = inst.getConnector(accProps.getProperty("user"), authToken);
 		} catch (AccumuloException e) {
 			e.printStackTrace();
@@ -117,6 +115,20 @@ public class LocalFileUtil {
 			props.load(br);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+		if (props.getProperty("password").substring(0,5).equals("path:")) {
+			String pwordPath = props.getProperty("password").substring(5);
+			File file = new File(pwordPath);
+
+			try (BufferedReader is = new BufferedReader(new FileReader(file))) {
+				String pword = is.readLine();
+				props.setProperty("password",pword);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
         
 		return props;
