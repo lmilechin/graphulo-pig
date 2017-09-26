@@ -1,18 +1,14 @@
-/* This script (roughly) demonstrates the following:
- * 
- * 1. Load results from a single, hard-coded graph (SimpleAdjInsertTest)
- * 2. Dump the first ten rows from the graph
- * 3. Flatten the maps into triples
- * 4. Dump the flattened triples
- */
-
+-- Register Graphulo and Graphulo Pig jars
 REGISTER ../../../target/graphulo-pig-0.0.1-SNAPSHOT.jar;
-REGISTER /home/gridsan/tools/d4m_api/lib/graphulo-3.0.0.jar;
+REGISTER /path/to/d4m_api/lib/graphulo-3.0.0.jar;
 
+DEFINE DbTableBinder edu.mit.ll.graphulo.pig.backend.DbTableBinder();
+DEFINE D4mQuery edu.mit.ll.graphulo.pig.backend.D4mQuery();
+
+-- Load DB Configuration and Bind to Tables
 A = LOAD 'dbSetup.txt' USING PigStorage() AS (configFile:chararray, adjTable:chararray, transposeTable:chararray);
-Tadj = FOREACH A GENERATE edu.mit.ll.graphulo.pig.backend.DbTableBinder(configFile,'test_Adj','test_AdjT');
+Tadj = FOREACH A GENERATE DbTableBinder(configFile,'undir_Adj','undir_AdjT');
 
-TadjDeg = FOREACH A GENERATE edu.mit.ll.graphulo.pig.backend.DbTableBinder(configFile,'undir_AdjDeg');
-
-Q = FOREACH Tadj GENERATE FLATTEN(edu.mit.ll.graphulo.pig.backend.D4mQuery(dbTable,':',':'));
+-- Query for rows with Row IDs 9, 2, and 5
+Q = FOREACH Tadj GENERATE FLATTEN(D4mQuery(dbTable,'9,2,5',':'));
 dump Q;

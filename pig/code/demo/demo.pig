@@ -1,7 +1,6 @@
-
 -- Register Graphulo and Graphulo Pig jars
 REGISTER ../../../target/graphulo-pig-0.0.1-SNAPSHOT.jar;
-REGISTER /home/gridsan/tools/d4m_api/lib/graphulo-3.0.0.jar;
+REGISTER /path/to/d4m_api/lib/graphulo-3.0.0.jar;
 
 DEFINE DbTableBinder edu.mit.ll.graphulo.pig.backend.DbTableBinder();
 DEFINE PutTriple edu.mit.ll.graphulo.pig.backend.PutTriple();
@@ -40,4 +39,3 @@ DUMP kTruss;
 -- Delete Tables
 del = FOREACH Tadj GENERATE DeleteTable(dbTable,'TadjDeg','undir_AdjDeg','Tadj_BFS','Tadj_Jaccard','Tadj_kTruss');
 DUMP del;
-

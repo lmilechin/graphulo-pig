@@ -1,1 +1,0 @@
-/X/X/data/sample.graph,SimpleAdjInsertTest

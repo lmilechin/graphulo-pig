@@ -1,0 +1,1 @@
+../../config/localAccumulo.config	Tadj	TadjT
